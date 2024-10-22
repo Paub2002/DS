@@ -11,10 +11,15 @@ public class Door {
   private boolean closed; // physically
   private DoorState state;
 
-  public Door(String id) {
+  public Door(String id, String from , String to ) {
     this.id = id;
     closed = true;
     state = new UnlockedDoor(this);
+    Partition fromArea = DirectoryAreas.findPartitionById(from);
+    Partition toArea   = DirectoryAreas.findPartitionById(to);
+    fromArea.addOutDoor(this);
+    toArea.addInDoor(this);
+
   }
 
   public void processRequest(RequestReader request) {
