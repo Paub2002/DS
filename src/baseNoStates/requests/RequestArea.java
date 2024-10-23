@@ -1,7 +1,7 @@
 package baseNoStates.requests;
 
 import baseNoStates.Actions;
-import baseNoStates.Area;
+import baseNoStates.areas.Area;
 import baseNoStates.DirectoryAreas;
 import baseNoStates.Door;
 import org.json.JSONArray;

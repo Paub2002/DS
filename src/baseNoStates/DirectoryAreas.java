@@ -1,5 +1,9 @@
 package baseNoStates;
 
+import baseNoStates.areas.Area;
+import baseNoStates.areas.Partition;
+import baseNoStates.areas.Space;
+
 import java.util.ArrayList;
 
 public final class DirectoryAreas {

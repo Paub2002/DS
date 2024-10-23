@@ -1,6 +1,7 @@
 package baseNoStates;
 
 import baseNoStates.DoorState.UnlockedDoor;
+import baseNoStates.areas.Partition;
 import baseNoStates.requests.RequestReader;
 import baseNoStates.DoorState.DoorState;
 import org.json.JSONObject;
