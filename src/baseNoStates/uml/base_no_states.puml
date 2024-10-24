@@ -31,8 +31,43 @@ class DirectoryDoors {
 + {static} findDoorById(id : String) : Door
 + {static} getAllDoors() : Door[]
 }
+class DirectoryAreas {
+- {static} Space : root
++ {static} makeAreas()
++ {static} findPartitionById(id : String) : Door
++ {static} findAreaById(id : String) : Door
++ {static} getAllDoors() : Door[]
+}
+DirectoryAreas--> "*" Areas.Area : ""
+package Areas{
+abstract class Area {
+-{static} String : id
++ getPartitions() : Partition[]
++ getDoorsGivingAccess(): Door[]
++ findAreaById() : Area
++ findPartitionById() : Partition
+}
+class Partition implements Area {
+    - Door[] : in
+    - Door[] : out
+    + addInDoor()
+    + addOutDoor()
+    + getPartitions() : Partition[]
+    + getDoorsGivingAccess(): Door[]
+    + findAreaById() : Area
+    + findPartitionById() : Partition
+}
+class Space implements Area {
+    - Area[] child_areas
+    + addChild()
+    + getPartitions() : Partition[]
+    + getDoorsGivingAccess(): Door[]
+    + findAreaById() : Area
+    + findPartitionById() : Partition
+}
+Space -right-> "*" Area
+}
 
-DirectoryDoors --> "*" Door : "allDoors"
 
 class DirectoryUsers {
 - {static} users : User[]
@@ -56,8 +91,10 @@ class Door {
 '+ getStateName() : String
 - doAction(action : String)
 }
+DirectoryDoors --> "*" Door : "allDoors"
+Areas.Partition --> "*" Door
 
-Door o--> DoorState : "state"
+Door o--> DoorState.DoorState : "state"
 
 class User {
 - name : String

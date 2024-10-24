@@ -4,7 +4,7 @@ package baseNoStates.DoorState;
 import baseNoStates.Door;
 
 public class UnlockedDoor extends DoorState {
-
+    //Unlocked Door State. Implements DoorState State Pattern
 
     public UnlockedDoor(Door d) {
         super(d);

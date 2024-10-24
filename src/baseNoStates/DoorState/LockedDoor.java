@@ -3,7 +3,7 @@ package baseNoStates.DoorState;
 import baseNoStates.Door;
 
 public class LockedDoor extends DoorState {
-
+    // Locked Door State. Implements DoorState State Pattern
     LockedDoor(Door door) {
         super(door);
         name = "locked";

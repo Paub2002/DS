@@ -2,6 +2,7 @@ package baseNoStates.DoorState;
 import baseNoStates.Door;
 
 public class ProppedDoor extends DoorState {
+    // Propped Door State. Implements DoorState State Pattern
 
     public ProppedDoor(Door d) {
         super(d);

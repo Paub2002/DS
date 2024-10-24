@@ -7,15 +7,18 @@ import baseNoStates.areas.Space;
 import java.util.ArrayList;
 
 public final class DirectoryAreas {
+    //Singleton instance. Initilitzes all Spaces and Partitions.
  private static Space root;
 
  public static void makeAreas()
  {
+     //Spaces
      Space building     = new Space("building", null);
      Space basement     = new Space("basement", building);
      Space ground_floor = new Space("ground_floor", building);
      Space floor_1      = new Space("floor1", building);
 
+     //Partitions
      Partition parking = new Partition("parking",basement);
      Partition hall = new Partition("hall", ground_floor);
      Partition room_1 = new Partition("room1",ground_floor);

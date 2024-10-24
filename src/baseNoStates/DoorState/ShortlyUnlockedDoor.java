@@ -2,7 +2,7 @@ package baseNoStates.DoorState;
 import baseNoStates.Door;
 
 public class ShortlyUnlockedDoor extends DoorState {
-
+    // Shortly Unlocked Door State. Implements DoorState State Pattern
     public ShortlyUnlockedDoor(Door d) {
         super(d);
         name = "unlocked_shortly";

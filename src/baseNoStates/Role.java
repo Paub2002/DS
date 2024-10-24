@@ -36,10 +36,13 @@ public class Role
 
   public boolean canPerformAction(String action, Door Target, Integer currentYear, Integer currentMonth, Integer currentDay, Integer currentHour, Integer currentDayOfWeek)
   {
+    // Retrieve from and to spaces
     Partition from = Target.getFromSpace();
     Partition to = Target.getToSpace();
+
     boolean allowedFrom = false;
     boolean allowedTo = false;
+    // Search for the found spaces in the areas three.
     for (String allowedSpace : allowedSpaces) {
       Area alllowedArea = DirectoryAreas.findAreaById(allowedSpace);
       ArrayList<Partition> partitions = alllowedArea.getPartitions();
