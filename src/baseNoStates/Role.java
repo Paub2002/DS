@@ -54,17 +54,13 @@ public class Role
       }
       if (allowedFrom && allowedTo) {break; }
     }
-      // Es mira si aquest rol conté l'acció requerida i la porta especificada
+    //Checks if this role contains the required action and the specified port
     boolean actionAllowed = allowedActions.contains(action) && allowedFrom && allowedTo;
-    // Per al següent mirem que existeixi any actual, any inici i any final,
-    // si estem a any inici mirem que existeixi "mes" i que sigui major a mes inici,
-    // si estem a any final mirem que existeixi "mes" i que sigui major a mes final
+    // It is ensured that the current date is between the start and end dates
     boolean timeAllowed = (currentYear != null && startYear != null && endYear != null && (currentYear > startYear && currentYear < endYear)) || (currentYear != null && startYear != null && currentYear.equals(startYear) && (currentMonth != null && currentMonth >= startMonth)) || (currentYear != null && endYear != null && currentYear.equals(endYear) && (currentMonth != null && currentMonth <= endMonth));
-    // Es mira que existeixi hora actual i hora inicial i final,
-    // i que l'hora actual estigui entre la final i l'inicial
+    // Checks that the current time is within the range of hours, if any
     boolean hourAllowed = ((startHour == null || endHour == null) || (currentHour != null && currentHour >= startHour && currentHour <= endHour));
-    // Es mira si s'especifiquen dies (No en cas d'administrador, per exemple)
-    // i mirem si el dia de la setmana present está en el rol.
+    // Checks that today's day of the week is in the weekly work days of the role
     boolean dayAllowed = (allowedDays == null || allowedDays.contains(currentDayOfWeek));
 
     return actionAllowed && timeAllowed && hourAllowed && dayAllowed;
