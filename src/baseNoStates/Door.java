@@ -30,8 +30,8 @@ public class Door extends Observable {
   public void processRequest(RequestReader request) {
     // it is the Door that process the request because the door has and knows
     // its state, and if closed or open
-    if (request.isAuthorized()) {
-      String action = request.getAction();
+    String action = request.getAction();
+    if (action.equals( "open") || action.equals("close") || request.isAuthorized()) {
       doAction(action);
     } else {
       System.out.println("not authorized");
