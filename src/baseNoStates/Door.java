@@ -6,9 +6,9 @@ import baseNoStates.areas.Space;
 import baseNoStates.requests.RequestReader;
 import baseNoStates.DoorState.DoorState;
 import org.json.JSONObject;
+import java.util.Observable;
 
-
-public class Door {
+public class Door extends Observable {
   private final String id;
   private boolean closed; // physically
   private DoorState state;
@@ -26,6 +26,7 @@ public class Door {
 
   }
 
+  public void setState(DoorState state) {this.state = state;}
   public void processRequest(RequestReader request) {
     // it is the Door that process the request because the door has and knows
     // its state, and if closed or open
@@ -45,6 +46,8 @@ public class Door {
         break;
       case Actions.CLOSE:
         closed = state.close();
+        setChanged();
+        notifyObservers(this);
         break;
       case Actions.LOCK:
         state = state.lock();
