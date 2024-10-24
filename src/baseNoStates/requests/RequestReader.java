@@ -5,7 +5,10 @@ import baseNoStates.DirectoryUsers;
 import baseNoStates.Door;
 import baseNoStates.User;
 import java.time.LocalDateTime;
+import java.time.Month;
+import java.time.Year;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -95,9 +98,11 @@ public class RequestReader implements Request {
       authorized = false;
       addReason("user doesn't exists");
     } else {
+      Calendar now = Calendar.getInstance();
+      authorized  = user.role.canPerformAction(action, door, this.now.getYear(), this.now.getMonthValue(), this.now.getDayOfMonth(), this.now.getHour(), this.now.getDayOfWeek().getValue());
+      if (! authorized ) {addReason("User not authorized");}
       //TODO: get the who, where, when and what in order to decide, and if not
       // authorized add the reason(s)
-      authorized = true;
     }
   }
 }

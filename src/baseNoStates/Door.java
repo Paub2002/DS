@@ -2,6 +2,7 @@ package baseNoStates;
 
 import baseNoStates.DoorState.UnlockedDoor;
 import baseNoStates.areas.Partition;
+import baseNoStates.areas.Space;
 import baseNoStates.requests.RequestReader;
 import baseNoStates.DoorState.DoorState;
 import org.json.JSONObject;
@@ -11,15 +12,17 @@ public class Door {
   private final String id;
   private boolean closed; // physically
   private DoorState state;
+  private Partition from;
+  private Partition to;
 
   public Door(String id, String from , String to ) {
     this.id = id;
     closed = true;
     state = new UnlockedDoor(this);
-    Partition fromArea = DirectoryAreas.findPartitionById(from);
-    Partition toArea   = DirectoryAreas.findPartitionById(to);
-    fromArea.addOutDoor(this);
-    toArea.addInDoor(this);
+    this.from= DirectoryAreas.findPartitionById(from);
+    this.to= DirectoryAreas.findPartitionById(to);
+    this.from.addOutDoor(this);
+    this.to.addInDoor(this);
 
   }
 
@@ -68,6 +71,8 @@ public class Door {
   public String getId() {
     return id;
   }
+  public Partition  getFromSpace() { return this.from; }
+  public Partition  getToSpace() { return this.to; }
 
   public String getStateName() {
     return state.getName();

@@ -14,7 +14,7 @@ public final class DirectoryAreas {
      Space building     = new Space("building", null);
      Space basement     = new Space("basement", building);
      Space ground_floor = new Space("ground_floor", building);
-     Space floor_1      = new Space("floor_1", building);
+     Space floor_1      = new Space("floor1", building);
 
      Partition parking = new Partition("parking",basement);
      Partition hall = new Partition("hall", ground_floor);

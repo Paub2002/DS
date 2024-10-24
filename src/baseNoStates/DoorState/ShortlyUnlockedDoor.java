@@ -5,7 +5,7 @@ public class ShortlyUnlockedDoor extends DoorState {
 
     public ShortlyUnlockedDoor(Door d) {
         super(d);
-        name = "Shortly Unlocked";
+        name = "unlocked_shortly";
     }
     @Override
     public boolean open() {
