@@ -108,6 +108,22 @@ class User {
 + toString() : String
 }
 
+class Role {
+- name : String
+- allowedActions : ArrayList<String>
+- allowedSpaces  : ArrayList<String>
+- endYear : Integer
+- startMonth : Integer
+- endMonth : Integer
+- startYear : Integer
+- startHour      : Integer
+- endHour        : Integer
+- allowedDays    : ArrayList<Integer>
+
++ Role(String name, List<String> allowedActions, List<String> allowedSpaces, Integer startYear, Integer endYear, Integer startMonth, Integer endMonth, Integer startHour, Integer endHour, List<Integer> allowedDays)
++ canPerformAction(String action, Door Target, Integer currentYear, Integer currentMonth, Integer currentDay, Integer currentHour, Integer currentDayOfWeek)
++ String getName()
+}
 
 class Main {
 + {static} main(args : String)
