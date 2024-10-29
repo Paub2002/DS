@@ -1,6 +1,8 @@
 package baseNoStates;
 
 public class User {
+  // User class handles authentication and authorization.
+
   private final String name;
   private final String credential;
   public final Role role;

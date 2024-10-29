@@ -102,12 +102,14 @@ public class RequestReader implements Request {
       authorized = false;
       addReason("user doesn't exists");
     } else {
-      Calendar now = Calendar.getInstance();
-      authorized  = user.role.canPerformAction(action, door, this.now.getYear(), this.now.getMonthValue(), this.now.getDayOfMonth(), this.now.getHour(), this.now.getDayOfWeek().getValue());
-      if (! authorized ) {addReason("User not authorized");}
-      //TODO: get the who, where, when and what in order to decide, and if not
-      // authorized add the reason(s)
+      boolean authorizedAction = user.role.canPerfomAction(action);
+      if (!authorizedAction) {addReason("Action " + action + " not authorized");}
+      boolean authorizedSpace = user.role.canBeInSpace(door);
+      if (!authorizedSpace) {addReason("Space not authorized");}
+      boolean authorizedTime = user.role.timeAlowed(now);
+      if (! authorizedTime ) {addReason("Time not authorized");}
+      authorized = authorizedAction && authorizedSpace && authorizedTime;
+    }
     }
   }
-}
 

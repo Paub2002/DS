@@ -67,6 +67,30 @@ class Space implements Area {
 }
 Space -right-> "*" Area
 }
+User --> Role
+class Role {
+ - name : String
+ - allowedActions : String[]
+ - allowedSpaces : String[]
+ - schedule : Schedule
+
+ + canPerfomAction(String action): boolean
+ + timeAlowed(LocalDateTime now) : boolean
+ + canBeInSpace( Door Target)    : boolean
+
+}
+Role -Down-> Schedule
+class Schedule {
+ - startYear : Integer
+ - Integer endYear : final
+ - Integer startMonth : final
+ - Integer endMonth : final
+ - ArrayList<Integer> allowedDays : final
+ - Integer startHour : final
+ - Integer endHour : final
+
+ + timeAlowed(LocalDateTime now) : boolean
+}
 
 
 class DirectoryUsers {
