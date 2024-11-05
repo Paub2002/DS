@@ -73,7 +73,6 @@ class Role {
  - allowedActions : String[]
  - allowedSpaces : String[]
  - schedule : Schedule
-
  + canPerfomAction(String action): boolean
  + timeAlowed(LocalDateTime now) : boolean
  + canBeInSpace( Door Target)    : boolean
@@ -128,25 +127,9 @@ Door o--> DoorState.DoorState : "state"
 class User {
 - name : String
 - credential : String
+- role : Role
 + User(name: String, credential: String)
 + toString() : String
-}
-
-class Role {
-- name : String
-- allowedActions : ArrayList<String>
-- allowedSpaces  : ArrayList<String>
-- endYear : Integer
-- startMonth : Integer
-- endMonth : Integer
-- startYear : Integer
-- startHour      : Integer
-- endHour        : Integer
-- allowedDays    : ArrayList<Integer>
-
-+ Role(String name, List<String> allowedActions, List<String> allowedSpaces, Integer startYear, Integer endYear, Integer startMonth, Integer endMonth, Integer startHour, Integer endHour, List<Integer> allowedDays)
-+ canPerformAction(String action, Door Target, Integer currentYear, Integer currentMonth, Integer currentDay, Integer currentHour, Integer currentDayOfWeek)
-+ String getName()
 }
 
 class Main {
