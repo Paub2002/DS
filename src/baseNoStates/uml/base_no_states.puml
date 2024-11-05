@@ -1,0 +1,190 @@
+@startuml
+'https://plantuml.com/class-diagram
+skinparam classAttributeIconSize 0
+
+class Webserver {
+- {static} PORT :int
+- {static} FORMATTER : DateTimeFormatter
++ Webserver()
+}
+
+class SocketThread {
+- insocked : Socked
+- makeRequest(tokens : String[]) : Request
+- makeRequestReader(tokens : String[]) : RequestReader
+- makeRequestArea(tokens : String[]) : RequestArea
+- makeHeaderAnswer() : String
+- makeJsonAnswer(request : Request) : String
++ run()
+}
+
+Webserver +-right- SocketThread
+
+note right of SocketThread
+inner class
+of Webserver
+end note
+
+class DirectoryDoors {
+- {static} allDoors : Door[]
++ {static} makeDoors()
++ {static} findDoorById(id : String) : Door
++ {static} getAllDoors() : Door[]
+}
+class DirectoryAreas {
+- {static} Space : root
++ {static} makeAreas()
++ {static} findPartitionById(id : String) : Door
++ {static} findAreaById(id : String) : Door
++ {static} getAllDoors() : Door[]
+}
+DirectoryAreas--> "*" Areas.Area : ""
+package Areas{
+abstract class Area {
+-{static} String : id
++ getPartitions() : Partition[]
++ getDoorsGivingAccess(): Door[]
++ findAreaById() : Area
++ findPartitionById() : Partition
+}
+class Partition implements Area {
+    - Door[] : in
+    - Door[] : out
+    + addInDoor()
+    + addOutDoor()
+    + getPartitions() : Partition[]
+    + getDoorsGivingAccess(): Door[]
+    + findAreaById() : Area
+    + findPartitionById() : Partition
+}
+class Space implements Area {
+    - Area[] child_areas
+    + addChild()
+    + getPartitions() : Partition[]
+    + getDoorsGivingAccess(): Door[]
+    + findAreaById() : Area
+    + findPartitionById() : Partition
+}
+Space -right-> "*" Area
+}
+User --> Role
+class Role {
+ - name : String
+ - allowedActions : String[]
+ - allowedSpaces : String[]
+ - schedule : Schedule
+ + canPerfomAction(String action): boolean
+ + timeAlowed(LocalDateTime now) : boolean
+ + canBeInSpace( Door Target)    : boolean
+
+}
+Role -Down-> Schedule
+class Schedule {
+ - startYear : Integer
+ - Integer endYear : final
+ - Integer startMonth : final
+ - Integer endMonth : final
+ - ArrayList<Integer> allowedDays : final
+ - Integer startHour : final
+ - Integer endHour : final
+
+ + timeAlowed(LocalDateTime now) : boolean
+}
+
+
+class DirectoryUsers {
+- {static} users : User[]
++ {static} makeUsers()
++ {static} findUserByCredential(credential : String) : User
+}
+
+DirectoryUsers --> "*" User : "users"
+class DoorObserver implements java.util.observer {
+- Door : door
+- Timer : timer
++ Update()
+}
+DoorObserver --> Door : "door"
+class Door implements java.util.observable {
+- id : String
+- closed : boolean
+- state : DoorState
++ Door(id : String)
++ processRequest(request : RequestReader)
++ setState(doorState : DoorState)
++ toJson() : JSONObject
+'+ toString() : String
+'+ isClosed() :boolean
+'+ setClosed(b : boolean)
+'+ getStateName() : String
+- doAction(action : String)
+}
+DirectoryDoors --> "*" Door : "allDoors"
+Areas.Partition --> "*" Door
+
+Door o--> DoorState.DoorState : "state"
+
+class User {
+- name : String
+- credential : String
+- role : Role
++ User(name: String, credential: String)
++ toString() : String
+}
+
+class Main {
++ {static} main(args : String)
+}
+
+package DoorState {
+    abstract DoorState {
+    - door : Door
+    - name : String
+    + {abstract} open()
+    + {abstract} close()
+    + {abstract} lock()
+    + {abstract} unlock()
+    + {abstract} unlock_shortly()
+    }
+    class LockedDoor implements DoorState{
+    + open()
+    + close()
+    + lock()
+    + unlock()
+    + unlock_shortly()
+    }
+    class ProppedDoor implements DoorState{
+    + open()
+    + close()
+    + lock()
+    + unlock()
+    + unlock_shortly()
+    }
+    class UnlockedDoor implements DoorState{
+    + open()
+    + close()
+    + lock()
+    + unlock()
+    + unlock_shortly()
+    }
+    class ShortlyUnlockedDoor implements DoorState{
+    + open()
+    + close()
+    + lock()
+    + unlock()
+    + unlock_shortly()
+    }
+}
+note right of Main::main
+DirectoryDoors.makeDoors()
+DiretoryUsers.makeUsers()
+DiretoryAreas.makeAreas()
+new Webserver()
+end note
+
+Main -[hidden]down- Webserver
+Webserver -[hidden]down- DirectoryDoors
+DirectoryDoors -[hidden]right- DirectoryUsers
+
+
+@enduml
