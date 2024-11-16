@@ -4,9 +4,17 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public final class DirectoryUsers {
-  private static final ArrayList<User> users = new ArrayList<>();
+  private ArrayList<User> users = new ArrayList<>();
+  private static DirectoryUsers instance = null;
 
-  public static void makeUsers() {
+  public static DirectoryUsers getInstance() {
+    if (instance == null) {
+      instance = new DirectoryUsers();
+    }
+    return instance;
+  }
+
+  private DirectoryUsers() {
     // users without any privilege, just to keep temporally users instead of deleting them,
     // this is to withdraw all permissions but still to keep user data to give back
     // permissions later
@@ -46,7 +54,7 @@ public final class DirectoryUsers {
 
   }
 
-  public static User findUserByCredential(String credential) {
+  public User findUserByCredential(String credential) {
     for (User user : users) {
       if (user.getCredential().equals(credential)) {
         return user;

@@ -8,9 +8,16 @@ import java.util.ArrayList;
 
 public final class DirectoryAreas {
     //Singleton instance. Initilitzes all Spaces and Partitions.
- private static Space root;
+ private Space root;
+ private static DirectoryAreas instance; // Singleton instance
 
- public static void makeAreas()
+ public static DirectoryAreas getInstance() {
+     if (instance == null) {
+         instance = new DirectoryAreas();
+     }
+     return instance;
+ }
+ private DirectoryAreas()
  {
      //Spaces
      Space building     = new Space("building", null);
@@ -34,8 +41,8 @@ public final class DirectoryAreas {
      root = building;
 
  }
-public static Partition findPartitionById(String id) {return root.findPartitionById(id);}
-public static Area findAreaById(String id){ return root.findAreaById(id); }
-public static ArrayList<Door> getAllDoors(){ return root.getDoorsGivingAccess(); }
+public Partition findPartitionById(String id) {return root.findPartitionById(id);}
+public Area findAreaById(String id){ return root.findAreaById(id); }
+public ArrayList<Door> getAllDoors(){ return root.getDoorsGivingAccess(); }
 }
 

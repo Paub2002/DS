@@ -26,6 +26,7 @@ public class Role
   public boolean timeAlowed(LocalDateTime now) {return this.schedule.canSendRequests(now);}
   public boolean canBeInSpace( Door Target)
   {
+    DirectoryAreas directoryAreas = DirectoryAreas.getInstance();
     // Retrieve from and to spaces
     Partition from = Target.getFromSpace();
     Partition to = Target.getToSpace();
@@ -34,7 +35,7 @@ public class Role
     boolean allowedTo = false;
     // Search for the found spaces in the areas three.
     for (String allowedSpace : allowedSpaces) {
-      Area alllowedArea = DirectoryAreas.findAreaById(allowedSpace);
+      Area alllowedArea = directoryAreas.findAreaById(allowedSpace);
       ArrayList<Partition> partitions = alllowedArea.getPartitions();
       if (partitions.contains(from)) {
         allowedFrom = true;

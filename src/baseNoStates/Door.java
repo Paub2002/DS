@@ -19,8 +19,9 @@ public class Door extends Observable {
     this.id = id;
     closed = true;
     state = new UnlockedDoor(this);
-    this.from= DirectoryAreas.findPartitionById(from);
-    this.to= DirectoryAreas.findPartitionById(to);
+    DirectoryAreas directory = DirectoryAreas.getInstance();
+    this.from= directory.findPartitionById(from);
+    this.to= directory.findPartitionById(to);
     this.from.addOutDoor(this);
     this.to.addInDoor(this);
 
