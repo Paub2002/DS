@@ -1,6 +1,7 @@
 package base.areas;
 
 import base.Door;
+import base.Visitor.Visitor;
 
 import java.util.ArrayList;
 /**
@@ -19,14 +20,8 @@ public abstract class Area{
     }
     //Get the area id.
     public String getId(){ return id;}
-
-    //Get all areas Partition ( leafs of the areas tree)
-    public abstract ArrayList<Partition> getPartitions();
-    //Get all doors that lead to the area
     public abstract ArrayList<Door> getDoorsGivingAccess();
-    //Search for a child area in the areas three
-    public abstract Area findAreaById( String find_id);
-    //Search for a child partition (leaf )in the areas three. Used to determine if a user can access somewhere.
-    public abstract Partition findPartitionById( String find_id);
+    //Accepts a visitor to perform operations on this Area.
+    public abstract void accept(Visitor visitor);
 }
 

@@ -31,8 +31,7 @@ public class RequestRefresh implements Request {
   // works or not, retrieves the state of all the doors so that the simulator can
   // repaint the readers
   public void process() {
-    DirectoryDoors doors = DirectoryDoors.getInstance();
-    for (Door door : doors.getAllDoors()) {
+    for (Door door : DirectoryDoors.getAllDoors()) {
       jsonsDoors.add(door.toJson());
     }
   }

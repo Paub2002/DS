@@ -3,7 +3,10 @@ package base.requests;
 import base.*;
 
 import java.time.LocalDateTime;
+import java.time.Month;
+import java.time.Year;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -75,10 +78,8 @@ public class RequestReader implements Request {
   // see if the request is authorized and put this into the request, then send it to the door.
   // if authorized, perform the action.
   public void process() {
-    DirectoryUsers users = DirectoryUsers.getInstance();
-    DirectoryDoors doors = DirectoryDoors.getInstance();
-    User user = users.findUserByCredential(credential);
-    Door door = doors.findDoorById(doorId);
+    User user = DirectoryUsers.findUserByCredential(credential);
+    Door door = DirectoryDoors.findDoorById(doorId);
     assert door != null : "door " + doorId + " not found";
     authorize(user, door);
     // this sets the boolean authorize attribute of the request

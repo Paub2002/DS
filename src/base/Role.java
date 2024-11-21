@@ -32,17 +32,22 @@ public class Role
 
     boolean allowedFrom = false;
     boolean allowedTo = false;
-    // Search for the found spaces in the areas three.
+    // Search for the found spaces in the areas three, ensuring the areas retrieved are instances of Partition.
     for (String allowedSpace : allowedSpaces) {
-      Area alllowedArea = directoryAreas.findAreaById(allowedSpace);
-      ArrayList<Partition> partitions = alllowedArea.getPartitions();
-      if (partitions.contains(from)) {
-        allowedFrom = true;
+      Area allowedArea = DirectoryAreas.findAreaById(allowedSpace);
+
+      if (allowedArea instanceof Partition) {
+        Partition partition = (Partition) allowedArea;
+        if (partition.equals(from)) {
+          allowedFrom = true;
+        }
+        if (partition.equals(to)) {
+          allowedTo = true;
+        }
       }
-      if (partitions.contains(to)) {
-        allowedTo= true;
+      if (allowedFrom && allowedTo) {
+        break;
       }
-      if (allowedFrom && allowedTo) {break; }
     }
     //Checks if this role contains the required action and the specified port
     return allowedFrom && allowedTo;
