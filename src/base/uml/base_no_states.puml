@@ -73,8 +73,8 @@ class Role {
  - allowedActions : String[]
  - allowedSpaces : String[]
  - schedule : Schedule
- + canPerfomAction(String action): boolean
- + timeAlowed(LocalDateTime now) : boolean
+ + canPerformAction(String action): boolean
+ + timeAllowed(LocalDateTime now) : boolean
  + canBeInSpace( Door Target)    : boolean
 
 }
@@ -88,7 +88,7 @@ class Schedule {
  - Integer startHour : final
  - Integer endHour : final
 
- + timeAlowed(LocalDateTime now) : boolean
+ + timeAllowed(LocalDateTime now) : boolean
 }
 
 
@@ -177,8 +177,8 @@ package DoorState {
 }
 note right of Main::main
 DirectoryDoors.makeDoors()
-DiretoryUsers.makeUsers()
-DiretoryAreas.makeAreas()
+DirectoryUsers.makeUsers()
+DirectoryAreas.makeAreas()
 new Webserver()
 end note
 

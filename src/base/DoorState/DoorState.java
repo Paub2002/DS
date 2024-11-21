@@ -1,8 +1,8 @@
-package baseNoStates.DoorState;
-import baseNoStates.Door;
+package base.DoorState;
+import base.Door;
 public abstract class DoorState {
     //Abstract class to define door states. Uses a state pattern.
-    Door door;
+    final Door door;
     String name;
 
     public DoorState(Door d){
@@ -10,9 +10,10 @@ public abstract class DoorState {
     }
     public String getName() { return name; }
 
+    public boolean close(){return true; }
+
 // Different Actions we can do on a door,
     abstract public boolean open();
-    abstract public boolean close();
     abstract public DoorState lock();
     abstract public DoorState unlock();
     abstract public DoorState unlock_shortly();

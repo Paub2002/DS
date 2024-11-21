@@ -1,6 +1,6 @@
-package baseNoStates.DoorState;
+package base.DoorState;
 
-import baseNoStates.Door;
+import base.Door;
 
 public class LockedDoor extends DoorState {
     // Locked Door State. Implements DoorState State Pattern
@@ -14,12 +14,7 @@ public class LockedDoor extends DoorState {
         return true;
     }
 
-    @Override
-    public boolean close() {
-        return true;
-    }
-
-    @Override
+      @Override
     public DoorState lock() {
         return this;
     }

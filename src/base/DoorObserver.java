@@ -1,7 +1,7 @@
-package baseNoStates;
+package base;
 
-import baseNoStates.DoorState.LockedDoor;
-import baseNoStates.DoorState.ProppedDoor;
+import base.DoorState.LockedDoor;
+import base.DoorState.ProppedDoor;
 
 import java.util.Observable;
 import java.util.Observer;
@@ -12,8 +12,8 @@ public class DoorObserver implements Observer {
     // Door observer, when set looks for the door closing and updates its state.
     // Also checks after 10 seconds if the door has been closed and updates its state to propped or locked.
 
-    Door door; // Target door
-    Timer timer; // Timer to check for propped doors
+    final Door door; // Target door
+    final Timer timer; // Timer to check for propped doors
 
     public DoorObserver(Door door) {
         this.door = door;

@@ -1,11 +1,11 @@
-package baseNoStates;
+package base;
 
 public class User {
   // User class handles authentication and authorization.
 
   private final String name;
   private final String credential;
-  public final Role role;
+  private final Role role;
 
   public User(String name, String credential, Role role) {
     this.name = name;

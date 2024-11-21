@@ -1,10 +1,10 @@
-package baseNoStates;
+package base;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public final class DirectoryDoors {
-  private ArrayList<Door> allDoors;
+  private final ArrayList<Door> allDoors;
   private static DirectoryDoors instance;
 
   public static DirectoryDoors getInstance(){

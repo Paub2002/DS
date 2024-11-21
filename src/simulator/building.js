@@ -359,7 +359,7 @@ function processAnswerRefreshRequest(responseText) {
 }
 
 
-// what we do with the response from the server, when it arrives
+
 function processAnswerReaderRequest(responseText) {
     console.log("processAnswerReaderRequest " + responseText)
     answer.value = responseText;

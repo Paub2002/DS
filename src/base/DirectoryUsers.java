@@ -1,10 +1,11 @@
-package baseNoStates;
+package base;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public final class DirectoryUsers {
-  private ArrayList<User> users = new ArrayList<>();
+  private final ArrayList<User> users = new ArrayList<>();
   private static DirectoryUsers instance = null;
 
   public static DirectoryUsers getInstance() {
@@ -38,10 +39,10 @@ public final class DirectoryUsers {
     // all spaces
 
     // role creation
-    Role adminRole = new Role("Admin", Arrays.asList("lock", "unlock", "open", "close"), Arrays.asList("building"), 2024, 2100, 1, 1, null, null, Arrays.asList(1, 2, 3, 4, 5, 6,7));
-    Role managerRole = new Role("Manager", Arrays.asList("lock", "unlock", "open", "close"), Arrays.asList("building"), 2024, 2025, 9, 3, 8, 20, Arrays.asList(1, 2, 3, 4, 5, 6));
+    Role adminRole = new Role("Admin", Arrays.asList("lock", "unlock", "open", "close"), List.of("building"), 2024, 2100, 1, 1, null, null, Arrays.asList(1, 2, 3, 4, 5, 6,7));
+    Role managerRole = new Role("Manager", Arrays.asList("lock", "unlock", "open", "close"), List.of("building"), 2024, 2025, 9, 3, 8, 20, Arrays.asList(1, 2, 3, 4, 5, 6));
     Role employeeRole = new Role("Employee", Arrays.asList("open", "close", "unlock_shortly"), Arrays.asList("ground_floor", "floor1", "exterior", "stairs"), 2024, 2025, 9, 3, 9, 17, Arrays.asList(1, 2, 3, 4, 5));
-    Role temporaryUserRole = new Role("Temporary User", Arrays.asList(), Arrays.asList(), null, null, null, null, null, null, Arrays.asList());
+    Role temporaryUserRole = new Role("Temporary User", List.of(), List.of(), null, null, null, null, null, null, List.of());
 
     // users creation with a specific role
     users.add(new User("Ana", "11343", adminRole));

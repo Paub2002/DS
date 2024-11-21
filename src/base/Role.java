@@ -1,11 +1,10 @@
-package baseNoStates;
+package base;
 
-import baseNoStates.areas.Partition;
-import baseNoStates.areas.Area;
+import base.areas.Partition;
+import base.areas.Area;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class Role
@@ -18,8 +17,8 @@ public class Role
   public Role(String name, List<String> allowedActions, List<String> allowedSpaces, Integer startYear, Integer endYear, Integer startMonth, Integer endMonth, Integer startHour, Integer endHour, List<Integer> allowedDays)
   {
     this.name = name;
-    this.allowedActions = new ArrayList<String>( allowedActions);
-    this.allowedSpaces=  new ArrayList<String>( allowedSpaces) ;
+    this.allowedActions = new ArrayList<>(allowedActions);
+    this.allowedSpaces= new ArrayList<>(allowedSpaces) ;
     this.schedule = new Schedule(startYear,endYear,startMonth,endMonth,startHour,endHour,allowedDays);
   }
   public boolean canPerfomAction(String action){ return allowedActions.contains(action);}

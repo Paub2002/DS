@@ -1,21 +1,20 @@
-package baseNoStates.areas;
+package base.areas;
 
-import baseNoStates.Door;
+import base.Door;
 
 import java.util.ArrayList;
 
 public class Partition extends Area {
-    private ArrayList<Door> in, out;
+  private final ArrayList<Door> in;
+  private final ArrayList<Door> out;
 
     public Partition(String id, Space Parent)
     {
         super(id,Parent);
-        this.out= new ArrayList<Door>();
-        this.in = new ArrayList<Door>();
+        this.out= new ArrayList<>();
+        this.in = new ArrayList<>();
         Parent.addChild(this);
     }
-    public void AddinDoor(Door new_in)     { this.in.add(new_in);}
-    public void AddoutDoor(Door new_out)   { this.out.add(new_out);}
 
     @Override
     public ArrayList<Door> getDoorsGivingAccess() { return in; }

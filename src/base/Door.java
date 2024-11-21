@@ -1,10 +1,9 @@
-package baseNoStates;
+package base;
 
-import baseNoStates.DoorState.UnlockedDoor;
-import baseNoStates.areas.Partition;
-import baseNoStates.areas.Space;
-import baseNoStates.requests.RequestReader;
-import baseNoStates.DoorState.DoorState;
+import base.DoorState.UnlockedDoor;
+import base.areas.Partition;
+import base.requests.RequestReader;
+import base.DoorState.DoorState;
 import org.json.JSONObject;
 import java.util.Observable;
 
@@ -12,8 +11,8 @@ public class Door extends Observable {
   private final String id;
   private boolean closed; // physically
   private DoorState state;
-  private Partition from;
-  private Partition to;
+  private final Partition from;
+  private final Partition to;
 
   public Door(String id, String from , String to ) {
     this.id = id;

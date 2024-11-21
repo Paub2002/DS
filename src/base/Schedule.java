@@ -1,6 +1,5 @@
-package baseNoStates;
+package base;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,9 +31,9 @@ public class Schedule {
         if ( startMonth == null||endMonth == null || startYear == null || endYear == null ) return false;
         boolean timeAllowed = (Year > startYear && Year < endYear) || ( Year == startYear && Month >= startMonth) ||  (Year == endYear && Month <= endMonth );
         // Checks that the  time is within the range of hours, if any
-        boolean hourAllowed = startHour == null && endHour == null || ( Hour >= startHour && Hour <= endHour);
+        boolean hourAllowed = (startHour == null && endHour == null ) || ( Hour >= startHour && Hour <= endHour);
         // Checks that today's day of the week is in the weekly work days of the role
-        boolean dayAllowed = allowedDays == null || allowedDays.contains(Dow);
+        boolean dayAllowed = allowedDays.isEmpty() || allowedDays.contains(Dow);
         return timeAllowed && hourAllowed && dayAllowed;
     }
 }
