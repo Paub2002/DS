@@ -14,6 +14,7 @@ public class UnlockedDoor extends DoorState {
 
     @Override
     public boolean open() {
+
         return false;
     }
 
