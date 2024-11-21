@@ -1,6 +1,7 @@
 package baseNoStates;
 
 import baseNoStates.DoorState.UnlockedDoor;
+import baseNoStates.areas.Area;
 import baseNoStates.areas.Partition;
 import baseNoStates.areas.Space;
 import baseNoStates.requests.RequestReader;
@@ -19,9 +20,26 @@ public class Door extends Observable {
     this.id = id;
     closed = true;
     state = new UnlockedDoor(this);
-    DirectoryAreas directory = DirectoryAreas.getInstance();
-    this.from= directory.findPartitionById(from);
-    this.to= directory.findPartitionById(to);
+
+    //Ensure the areas retrieved are instances of Partition, and set them to the class attributes.
+    Area fromArea = DirectoryAreas.findAreaById(from);
+    Area toArea = DirectoryAreas.findAreaById(to);
+    if (fromArea instanceof Partition) {
+      this.from = (Partition) fromArea;
+      this.from.addOutDoor(this);
+    }
+    else {
+      System.out.println("Warning: Area with id '" + from + "' is not a Partition.");
+    }
+    if (toArea instanceof Partition) {
+      this.to = (Partition) toArea;
+      this.to.addInDoor(this);
+    }
+    else {
+      System.out.println("Warning: Area with id '" + to + "' is not a Partition.");
+    }
+
+
     this.from.addOutDoor(this);
     this.to.addInDoor(this);
 

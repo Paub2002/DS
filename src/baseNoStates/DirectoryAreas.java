@@ -1,23 +1,15 @@
 package baseNoStates;
 
-import baseNoStates.areas.Area;
-import baseNoStates.areas.Partition;
-import baseNoStates.areas.Space;
+import baseNoStates.Visitor.*;
+import baseNoStates.areas.*;
 
 import java.util.ArrayList;
 
 public final class DirectoryAreas {
     //Singleton instance. Initilitzes all Spaces and Partitions.
- private Space root;
- private static DirectoryAreas instance; // Singleton instance
+ private static Space root;
 
- public static DirectoryAreas getInstance() {
-     if (instance == null) {
-         instance = new DirectoryAreas();
-     }
-     return instance;
- }
- private DirectoryAreas()
+ public static void makeAreas()
  {
      //Spaces
      Space building     = new Space("building", null);
@@ -41,8 +33,24 @@ public final class DirectoryAreas {
      root = building;
 
  }
-public Partition findPartitionById(String id) {return root.findPartitionById(id);}
-public Area findAreaById(String id){ return root.findAreaById(id); }
-public ArrayList<Door> getAllDoors(){ return root.getDoorsGivingAccess(); }
+    //Method to find an Area by its ID. It uses the Visitor pattern to search for the area
+    public static Area findAreaById(String id) {
+        VisitorFindAreaByID visitor = new VisitorFindAreaByID(id);
+        root.accept(visitor);
+        return visitor.getFoundArea();
+    }
+    //Method to get all doors across all partitions. Uses a visitor to collect the doors.
+    public static ArrayList<Door> getAllDoors() {
+        VisitorListPartitionDoors visitor = new VisitorListPartitionDoors();
+        root.accept(visitor);
+        return visitor.getDoors();
+    }
+
+    //Method to get all spaces in the area. Uses a visitor to collect spaces.
+    public static ArrayList<Space> getAllSpaces() {
+        VisitorSpaceList visitor = new VisitorSpaceList();
+        root.accept(visitor);
+        return visitor.getSpaces();
+    }
 }
 
