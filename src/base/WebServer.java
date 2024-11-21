@@ -1,10 +1,9 @@
 package base;
 
 import base.requests.Request;
+import base.requests.RequestArea;
 import base.requests.RequestReader;
 import base.requests.RequestRefresh;
-import base.requests.RequestArea;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -26,7 +25,7 @@ public class WebServer {
   private static final int PORT = 8080; // port to listen connection
   private static final DateTimeFormatter formatter =
           DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
-  static Logger logger = LoggerFactory.getLogger("baseNoStates.WebServer");
+  static final Logger logger = LoggerFactory.getLogger("baseNoStates.WebServer");
 
   public WebServer() {
     try {
@@ -48,7 +47,7 @@ public class WebServer {
     // as an inner class, SocketThread sees WebServer attributes
     private final Socket insocked; // client connection via Socket class
 
-    static Logger logger = LoggerFactory.getLogger("baseNoStates.WebServer.SocketThread");
+    static final Logger logger = LoggerFactory.getLogger("baseNoStates.WebServer.SocketThread");
     SocketThread(Socket insocket) {
       this.insocked = insocket;
       this.start();

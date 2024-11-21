@@ -2,6 +2,7 @@ package base;
 
 import base.DoorState.UnlockedDoor;
 import base.areas.Partition;
+import base.areas.Area;
 import base.requests.RequestReader;
 import base.DoorState.DoorState;
 import org.json.JSONObject;
@@ -14,7 +15,7 @@ public class Door extends Observable {
   private final Partition from;
   private final Partition to;
 
-  public Door(String id, String from , String to ) {
+  public Door(String id, String from, String to){
     this.id = id;
     closed = true;
     state = new UnlockedDoor(this);
@@ -23,21 +24,17 @@ public class Door extends Observable {
     //Ensure the areas retrieved are instances of Partition, and set them to the class attributes.
     Area fromArea = directory.findAreaById(from);
     Area toArea = directory.findAreaById(to);
-    if (fromArea instanceof Partition) {
-      this.from = (Partition) fromArea;
-      this.from.addOutDoor(this);
-    }
-    else {
+    if (!(fromArea instanceof Partition)) {
       System.out.println("Warning: Area with id '" + from + "' is not a Partition.");
+      throw new IllegalArgumentException("Area with id '" + from + "' is not a Partition.");
     }
-    if (toArea instanceof Partition) {
-      this.to = (Partition) toArea;
-      this.to.addInDoor(this);
-    }
-    else {
+    if (!(toArea instanceof Partition)) {
       System.out.println("Warning: Area with id '" + to + "' is not a Partition.");
+      throw new IllegalArgumentException("Area with id '" + from + "' is not a Partition.");
     }
 
+    this.from = (Partition) fromArea;
+    this.to = (Partition) toArea;
 
     this.from.addOutDoor(this);
     this.to.addInDoor(this);

@@ -4,10 +4,16 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public final class DirectoryDoors {
-  private static final ArrayList<Door> allDoors;
+  private static ArrayList<Door> allDoors = null;
   private static DirectoryDoors instance;
 
-  public static void makeDoors() {
+  public static DirectoryDoors getInstance() {
+    if (instance == null) {
+      instance = new DirectoryDoors();
+    }
+    return instance;
+  }
+  private DirectoryDoors() {
     // basement
     Door d1 = new Door("D1", "exterior", "parking");
     Door d2 = new Door("D2", "stairs", "parking");
@@ -26,7 +32,7 @@ public final class DirectoryDoors {
     allDoors = new ArrayList<>(Arrays.asList(d1, d2, d3, d4, d5, d6, d7, d8, d9));
   }
 
-  public static Door findDoorById(String id) {
+  public Door findDoorById(String id) {
     for (Door door : allDoors) {
       if (door.getId().equals(id)) {
         return door;

@@ -6,7 +6,7 @@ import base.Visitor.Visitor;
 import java.util.ArrayList;
 
 public class Space extends Area {
-    private final ArrayList<Area> Child_Areas;
+    public final ArrayList<Area> Child_Areas;
 
     public Space(String id, Space Parent) {
         super(id,Parent);
@@ -33,7 +33,5 @@ public class Space extends Area {
         for (Area child : Child_Areas) {
             child.accept(visitor);
         }
-        return result;
-
-        }
+    }
 }
