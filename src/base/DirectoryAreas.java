@@ -3,13 +3,15 @@ package base;
 import base.Visitor.VisitorFindAreaByID;
 import base.Visitor.VisitorListPartitionDoors;
 import base.Visitor.VisitorPartitionList;
-import base.areas.*;
+import base.areas.Area;
+import base.areas.Partition;
+import base.areas.Space;
 
 import java.util.ArrayList;
 
 public final class DirectoryAreas {
   //Singleton instance. Initilitzes all Spaces and Partitions.
-  private static Space root;
+  private static Partition root;
   private static DirectoryAreas instance;
 
   public static DirectoryAreas getInstance() {
@@ -19,36 +21,41 @@ public final class DirectoryAreas {
     return instance;
   }
 
-  private DirectoryAreas()
-  {
+  private DirectoryAreas() {
     //Spaces
-    Space building     = new Space("building", null);
-    Space basement     = new Space("basement", building);
-    Space ground_floor = new Space("ground_floor", building);
-    Space floor_1      = new Space("floor1", building);
+    Partition building = new Partition("building", null);
+    Partition basement = new Partition("basement", building);
+    Partition ground_floor = new Partition("ground_floor", building);
+    Partition floor_1 = new Partition("floor1", building);
 
     //Partitions
-    Partition parking = new Partition("parking",basement);
-    Partition hall = new Partition("hall", ground_floor);
-    Partition room_1 = new Partition("room1",ground_floor);
-    Partition room_2 = new Partition("room2", ground_floor);
+    new Space("parking", basement);
+    new Space("hall", ground_floor);
+    new Space("room1", ground_floor);
+    new Space("room2", ground_floor);
 
-    Partition room_3 = new Partition("room3", floor_1);
-    Partition corridor = new Partition("corridor", floor_1);
-    Partition it = new Partition("IT", floor_1);
+    new Space("room3", floor_1);
+    new Space("corridor", floor_1);
+    new Space("IT", floor_1);
 
-    Partition stairs = new Partition("stairs",     building);
-    Partition exterior = new Partition("exterior", building);
+    new Space("stairs", building);
+    new Space("exterior", building);
 
     root = building;
 
   }
+
   //Method to find an Area by its ID. It uses the Visitor pattern to search for the area
   public Area findAreaById(String id) {
+    if (id.equals("ROOT")) {return root;}
+    // Special id that means that the wanted area is the root.
+    // This is because the Flutter app client doesn't know the
+    // id of the root, differently from the simulator
     VisitorFindAreaByID visitor = new VisitorFindAreaByID(id);
     root.accept(visitor);
     return visitor.getFoundArea();
   }
+
   //Method to get all doors across all partitions. Uses a visitor to collect the doors.
   public ArrayList<Door> getAllDoors() {
     VisitorListPartitionDoors visitor = new VisitorListPartitionDoors();
@@ -57,7 +64,7 @@ public final class DirectoryAreas {
   }
 
   //Method to get all spaces in the area. Uses a visitor to collect spaces.
-  public ArrayList<Partition> getAllSpaces() {
+  public ArrayList<Space> getAllSpaces() {
     VisitorPartitionList visitor = new VisitorPartitionList();
     root.accept(visitor);
     return visitor.getPartitions();

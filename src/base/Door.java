@@ -1,52 +1,60 @@
 package base;
 
-import base.DoorState.UnlockedDoor;
-import base.areas.Partition;
-import base.areas.Area;
-import base.requests.RequestReader;
 import base.DoorState.DoorState;
+import base.DoorState.UnlockedDoor;
+import base.areas.Area;
+import base.areas.Space;
+import base.requests.RequestReader;
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.Observable;
 
 public class Door extends Observable {
   private final String id;
   private boolean closed; // physically
   private DoorState state;
-  private final Partition from;
-  private final Partition to;
+  private final Space from;
+  private final Space to;
 
-  public Door(String id, String from, String to){
+  public Door(String id, String from, String to) {
     this.id = id;
     closed = true;
     state = new UnlockedDoor(this);
 
+
+    Logger logger = LoggerFactory.getLogger("base.Door");
     DirectoryAreas directory = DirectoryAreas.getInstance();
     //Ensure the areas retrieved are instances of Partition, and set them to the class attributes.
     Area fromArea = directory.findAreaById(from);
     Area toArea = directory.findAreaById(to);
-    if (!(fromArea instanceof Partition)) {
-      System.out.println("Warning: Area with id '" + from + "' is not a Partition.");
+    if (!(fromArea instanceof Space)) {
+      logger.warn("Warning: Area with id '" + from + "' is not a Partition.");
       throw new IllegalArgumentException("Area with id '" + from + "' is not a Partition.");
     }
-    if (!(toArea instanceof Partition)) {
-      System.out.println("Warning: Area with id '" + to + "' is not a Partition.");
+    if (!(toArea instanceof Space)) {
+      logger.warn("Warning: Area with id '" + to + "' is not a Partition.");
       throw new IllegalArgumentException("Area with id '" + from + "' is not a Partition.");
     }
 
-    this.from = (Partition) fromArea;
-    this.to = (Partition) toArea;
+    this.from = (Space) fromArea;
+    this.to = (Space) toArea;
 
     this.from.addOutDoor(this);
     this.to.addInDoor(this);
 
   }
 
-  public void setState(DoorState state) {this.state = state;}
+  public void setState(DoorState state) {
+    this.state = state;
+  }
+
   public void processRequest(RequestReader request) {
     // it is the Door that process the request because the door has and knows
     // its state, and if closed or open
     String action = request.getAction();
-    if (action.equals( "open") || action.equals("close") || request.isAuthorized()) {
+    if (action.equals("open") || action.equals("close") || request.isAuthorized()) {
       doAction(action);
     } else {
       System.out.println("not authorized");
@@ -89,8 +97,14 @@ public class Door extends Observable {
   public String getId() {
     return id;
   }
-  public Partition  getFromSpace() { return this.from; }
-  public Partition  getToSpace() { return this.to; }
+
+  public Space getFromSpace() {
+    return this.from;
+  }
+
+  public Space getToSpace() {
+    return this.to;
+  }
 
   public String getStateName() {
     return state.getName();

@@ -1,19 +1,35 @@
 <configuration>
-<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
-    <encoder> <pattern>
-        %d{HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n
-    </pattern> </encoder>
-</appender>
-<appender name="FILE" class="ch.qos.logback.core.FileAppender">
-    <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
-        <layout class="ch.qos.logback.classic.html.HTMLLayout">
-            <pattern>%relative%thread%mdc%level%logger%msg</pattern>
-        </layout>
-    </encoder>
-    <file>test.html</file>
-</appender>
-<root level="info">
-    <appender-ref ref="STDOUT" />
-    <appender-ref ref="FILE" />
-</root>
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>
+                %d{HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n
+            </pattern>
+        </encoder>
+    </appender>
+    <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+        <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+            <layout class="ch.qos.logback.classic.html.HTMLLayout">
+                <pattern>%relative%thread%mdc%level%logger%msg</pattern>
+            </layout>
+        </encoder>
+        <file>test.html</file>
+    </appender>
+    <root level="info">
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="FILE"/>
+    </root>
+    <logger name="base.DirectoryAreas" level="info"/>
+    <logger name="base.DirectoryDoors" level="info"/>
+    <logger name="base.DirectoryUsers" level="info"/>
+    <logger name="base.Role" level="info"/>
+    <logger name="base.DoorObserver" level="info"/>
+    <logger name="base.Schedule" level="info"/>
+    <logger name="base.DoorState.LockedDoor" level="info"/>
+    <logger name="base.DoorState.ProppedDoor" level="info"/>
+    <logger name="base.DoorState.UnlockedDoor" level="info"/>
+    <logger name="base.DoorState.ShortlyUnlockedDoor" level="info"/>
+    <logger name="base.areas.Partition" level="info"/>
+    <logger name="base.areas.Space" level="info"/>
+    <!--    Second Milestone -->
+
 </configuration>

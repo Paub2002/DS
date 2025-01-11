@@ -14,6 +14,7 @@ public final class DirectoryUsers {
     }
     return instance;
   }
+
   private DirectoryUsers() {
     // users without any privilege, just to keep temporally users instead of deleting them,
     // this is to withdraw all permissions but still to keep user data to give back
@@ -38,7 +39,7 @@ public final class DirectoryUsers {
     // all spaces
 
     // role creation
-    Role adminRole = new Role("Admin", Arrays.asList("lock", "unlock", "open", "close"), List.of("building"), 2024, 2100, 1, 1, null, null, Arrays.asList(1, 2, 3, 4, 5, 6,7));
+    Role adminRole = new Role("Admin", Arrays.asList("lock", "unlock", "open", "close"), List.of("building"), 2024, 2100, 1, 1, null, null, Arrays.asList(1, 2, 3, 4, 5, 6, 7));
     Role managerRole = new Role("Manager", Arrays.asList("lock", "unlock", "open", "close"), List.of("building"), 2024, 2025, 9, 3, 8, 20, Arrays.asList(1, 2, 3, 4, 5, 6));
     Role employeeRole = new Role("Employee", Arrays.asList("open", "close", "unlock_shortly"), Arrays.asList("ground_floor", "floor1", "exterior", "stairs"), 2024, 2025, 9, 3, 9, 17, Arrays.asList(1, 2, 3, 4, 5));
     Role temporaryUserRole = new Role("Temporary User", List.of(), List.of(), null, null, null, null, null, null, List.of());

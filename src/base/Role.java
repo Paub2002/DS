@@ -2,10 +2,8 @@ package base;
 
 import base.Visitor.VisitorPartitionList;
 import base.areas.Area;
-import base.areas.Partition;
 import base.areas.Space;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import base.areas.Partition;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -24,14 +22,14 @@ public class Role {
     ArrayList<String> spaces = new ArrayList<>();
     for (String s : allowedSpacesAreas) {
       Area area = directoryAreas.findAreaById(s);
-      if (area instanceof Space) {
+      if (area instanceof Partition) {
         VisitorPartitionList visitorSpaceList = new VisitorPartitionList();
         area.accept(visitorSpaceList);
-        ArrayList<Partition> spaceList = visitorSpaceList.getPartitions();
-        for (Partition space : spaceList) {
+        ArrayList<Space> spaceList = visitorSpaceList.getPartitions();
+        for (Space space : spaceList) {
           spaces.add(space.getId());
         }
-      } else if (area instanceof Partition) {
+      } else if (area instanceof Space) {
         spaces.add(area.getId());
       }
     }
@@ -50,11 +48,9 @@ public class Role {
   public boolean canBeInSpace(Door Target) {
     DirectoryAreas directoryAreas = DirectoryAreas.getInstance();
     // Retrieve from and to spaces
-    Partition from = Target.getFromSpace();
-    Partition to = Target.getToSpace();
+    Space from = Target.getFromSpace();
+    Space to = Target.getToSpace();
 
-    Logger logger = LoggerFactory.getLogger(this.getClass());
-    logger.info(allowedSpaces.toString());
     return allowedSpaces.contains(from.getId()) && allowedSpaces.contains(to.getId());
   }
 

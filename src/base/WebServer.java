@@ -4,6 +4,10 @@ import base.requests.Request;
 import base.requests.RequestArea;
 import base.requests.RequestReader;
 import base.requests.RequestRefresh;
+import base.requests.RequestChildren;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -13,8 +17,6 @@ import java.net.Socket;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.StringTokenizer;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 
 // Based on
@@ -24,7 +26,7 @@ public class WebServer {
 
   private static final int PORT = 8080; // port to listen connection
   private static final DateTimeFormatter formatter =
-          DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
+      DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
   static final Logger logger = LoggerFactory.getLogger("baseNoStates.WebServer");
 
   public WebServer() {
@@ -48,6 +50,7 @@ public class WebServer {
     private final Socket insocked; // client connection via Socket class
 
     static final Logger logger = LoggerFactory.getLogger("baseNoStates.WebServer.SocketThread");
+
     SocketThread(Socket insocket) {
       this.insocked = insocket;
       this.start();
@@ -137,11 +140,8 @@ public class WebServer {
           request = makeRequestArea(tokens);
           break;
         case "get_children":
-          //TODO: this is to be implemented when programming the mobile app in Flutter
-          // in order to navigate the hierarchy of partitions, spaces and doors
-          assert false : "request get_children is not yet implemented";
-          request = null;
-          System.exit(-1);
+          request = makeRequestChildren(tokens);
+
           break;
         default:
           // just in case we change the user interface or the simulator
@@ -184,6 +184,10 @@ public class WebServer {
       String answer = makeHeaderAnswer();
       answer += request.answerToJson().toString();
       return answer;
+    }
+    private RequestChildren makeRequestChildren(String[] tokens) {
+      String areaId = tokens[1];
+      return new RequestChildren(areaId);
     }
 
   }

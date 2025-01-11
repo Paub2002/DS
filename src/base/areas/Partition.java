@@ -2,36 +2,58 @@ package base.areas;
 
 import base.Door;
 import base.Visitor.Visitor;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
 public class Partition extends Area {
-  private final ArrayList<Door> in;
-  private final ArrayList<Door> out;
+  public final ArrayList<Area> Child_Areas;
 
-  public Partition(String id, Space Parent) {
+  public Partition(String id, Partition Parent) {
     super(id, Parent);
-    this.out = new ArrayList<>();
-    this.in = new ArrayList<>();
-    Parent.addChild(this);
+    this.Child_Areas = new ArrayList<>();
+    if (Parent != null) {
+      Parent.addChild(this);
+    }
+
   }
 
-  public void addInDoor(Door new_in) {
-    this.in.add(new_in);
-  }
-
-  public void addOutDoor(Door new_out) {
-    this.in.add(new_out);
+  public void addChild(Area child) {
+    this.Child_Areas.add(child);
   }
 
   @Override
   public ArrayList<Door> getDoorsGivingAccess() {
-    return new ArrayList<>(in);
+    ArrayList<Door> result = new ArrayList<>();
+    for (Area child : Child_Areas) {
+      result.addAll(child.getDoorsGivingAccess());
+    }
+    return result;
   }
 
-  //Accepts a visitor to perform operations on this Partition
+  // Accepts a visitor to perform operations on this Space
   @Override
   public void accept(Visitor visitor) {
-    visitor.visitPartition(this);
+    visitor.visitSpace(this);
+    for (Area child : Child_Areas) {
+      child.accept(visitor);
+    }
+  }
+  @Override
+  public JSONObject toJson(int depth) {
+    // for depth=1 only the root and children,
+    // for recusive = all levels use Integer.MAX_VALUE
+    JSONObject json = new JSONObject();
+    json.put("class", "partition");
+    json.put("id", id);
+    JSONArray jsonAreas = new JSONArray();
+    if (depth > 0) {
+      for (Area a : Child_Areas) {
+        jsonAreas.put(a.toJson(depth - 1));
+      }
+      json.put("areas", jsonAreas);
+    }
+    return json;
   }
 }

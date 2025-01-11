@@ -13,6 +13,7 @@ public final class DirectoryDoors {
     }
     return instance;
   }
+
   private DirectoryDoors() {
     // basement
     Door d1 = new Door("D1", "exterior", "parking");

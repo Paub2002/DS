@@ -16,7 +16,10 @@ public class User {
   public String getCredential() {
     return credential;
   }
-  public Role getRole() { return role;}
+
+  public Role getRole() {
+    return role;
+  }
 
   @Override
   public String toString() {
